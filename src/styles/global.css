@@ -1,21 +1,24 @@
 @tailwind base;
-
-a {
-  @apply text-blue-700;
-}
-
-a:hover {
-  @apply border-b-2 border-blue-700;
-}
-
 @tailwind components;
-
 @tailwind utilities;
 
-.content p {
-  @apply my-6;
+
+
+/* global landing movie */ 
+
+.landing-movie {
+  background-image: url("../../public/assets/images/9.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /*box-shadow: 0 10px 20px 20px #040720;*/
+  @apply bg-center;
+  @apply  md:bg-top;
+  @apply h-screen;
+}
+.shadow {
+  box-shadow: 0 -55px 40px 0px #190020;
 }
 
-.content ul {
-  @apply my-6;
-}
+
+
+
