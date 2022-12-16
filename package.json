@@ -22,6 +22,7 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
+    "@mdi/font": "^7.1.96",
     "next": "^13.0.6",
     "next-seo": "^5.14.1",
     "next-sitemap": "^3.1.32",

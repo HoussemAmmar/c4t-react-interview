@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
-import Image from "next/image";
-import arrow from "../../public/assets/icons/fast-forward.png";
+import Icon from "@mdi/react";
+import { mdiChevronDoubleRight } from "@mdi/js";
 
 function CoverMovie() {
   return (
@@ -26,17 +26,13 @@ function CoverMovie() {
               </Link>
               <Link href="/">
                 <button className="cursor-pointer ml-2 border-2 p-3 px-10 bg-darkPurple-100 bg-opacity-40 hover:bg-opacity-100 ">
-                  More Details >
-                  {/*<span>*/}
-                  {/*  <Image src={arrow} className="w-4" />*/}
-                  {/*</span>*/}
+                  More Details{" "}
+                  <span className="mdi mdi-chevron-double-right "></span>
                 </button>
               </Link>
             </div>
           </div>
-
         </div>
-
       </section>
     </>
   );
