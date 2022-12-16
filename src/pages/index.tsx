@@ -12,7 +12,6 @@ const Index = () => {
 
   useEffect(() => {
     moviesStore.getMovies();
-    console.log(movies);
   }, []);
 
   return (

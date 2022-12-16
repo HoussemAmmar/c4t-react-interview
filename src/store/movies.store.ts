@@ -20,6 +20,27 @@ export const useMoviesStore = create<MoviesStoreType>((set, get) => ({
       set(() => ({ error: 'Failed to load data' }));
     }
   },
+  addLike: (id: string) => {
+    const { movies } = get();
+    const index = movies.findIndex((movie: any) => {
+      return movie.id === id;
+    });
+
+    // @ts-ignore
+    movies[index].likes += 1;
+    set(() => ({ movies }));
+  },
+
+  addDislike: (id: string) => {
+    const { movies } = get();
+    const index = movies.findIndex((movie: any) => {
+      return movie.id === id;
+    });
+
+    // @ts-ignore
+    movies[index].dislikes += 1;
+    set(() => ({ movies }));
+  },
 }));
 
 mountStoreDevtool('useMoviesStore', useMoviesStore as any);
