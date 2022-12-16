@@ -7,8 +7,9 @@ export type Movie = {
   dislikes: number;
 };
 
-export type ThemeStoreType = {
+export type MoviesStoreType = {
   movies: Movie[];
   loader: boolean;
   error: string;
+  getMovies: () => void;
 };
