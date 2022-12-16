@@ -7,6 +7,7 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
   title,
   movies,
 }) => {
+  const [search, setSearch] = useState('');
   const [category, setCategory] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
 
@@ -40,6 +41,7 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
           </option>
         ))}
       </select>
+      <input className="p-3" onChange={(e) => setSearch(e.target.value)} />
       <div className="flex flex-wrap">
         {movies
           .filter((el) => {
@@ -54,6 +56,9 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
             });
             return eval(expression);
           })
+          .filter((movie) =>
+            movie.title.toUpperCase().startsWith(search.toUpperCase())
+          )
           .map((movie: Movie) => (
             <MovieCard key={movie.id} movie={movie} />
           ))}
