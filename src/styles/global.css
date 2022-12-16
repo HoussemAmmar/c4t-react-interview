@@ -1,29 +1,31 @@
 @import url("@mdi/font/css/materialdesignicons.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-
-/* global landing movie */ 
+/* global landing movie */
 
 .landing-movie {
-  background-image: url("../../public/assets/images/9.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  /*box-shadow: 0 10px 20px 20px #040720;*/
-  @apply bg-center;
-  @apply  md:bg-top;
-  @apply h-screen;
+    background-image: url("../../public/assets/images/9.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /*box-shadow: 0 10px 20px 20px #040720;*/
+    @apply bg-center;
+    @apply md:bg-top;
+    @apply h-screen;
 }
+
 .shadow {
-  box-shadow: 0 -55px 40px 0px #190020;
+    box-shadow: 0 -55px 40px 0px #190020;
 }
+
 .movie-card {
-  background-image: url("../../public/assets/images/8.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  @apply bg-top;
+    /*background-image: url("../../public/assets/images/8.jpg");*/
+    background-repeat: no-repeat;
+    background-size: cover;
+    @apply bg-top;
 
 }
 
