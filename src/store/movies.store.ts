@@ -41,6 +41,27 @@ export const useMoviesStore = create<MoviesStoreType>((set, get) => ({
     movies[index].dislikes += 1;
     set(() => ({ movies }));
   },
+  removeLike: (id: string) => {
+    const { movies } = get();
+    const index = movies.findIndex((movie: any) => {
+      return movie.id === id;
+    });
+
+    // @ts-ignore
+    movies[index].likes -= 1;
+    set(() => ({ movies }));
+  },
+
+  removeDislike: (id: string) => {
+    const { movies } = get();
+    const index = movies.findIndex((movie: any) => {
+      return movie.id === id;
+    });
+
+    // @ts-ignore
+    movies[index].dislikes -= 1;
+    set(() => ({ movies }));
+  },
   deleteMovie: (id: string) => {
     const { movies } = get();
     const newMovies = movies.filter((movie) => {
