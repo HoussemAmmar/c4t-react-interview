@@ -29,6 +29,86 @@
 
 }
 
+/* expanding search input*/
+
+.search-box {
+    position: relative;
+    background: transparent;
+    height: 45px;
+    width: 40px;
+    transition: 0.4s;
+    border: 1px solid;
+    @apply border-nearWhite-200;
+    @apply rounded-r-md;
+}
+
+.search-box:hover {
+    width: 300px;
+
+}
+
+.search-box:hover > .search-text {
+    width: 240px;
+
+
+}
+
+/*.search-btn {*/
+/*    color: black;*/
+/*}*/
+
+.search-btn {
+    position: absolute;
+    right: 0;
+    bottom: 2px;
+    width: 40px;
+    height: 40px;
+    transition: 0.4s;
+    cursor: pointer;
+    text-decoration: none;
+
+}
+
+.search-text {
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    font-weight: normal;
+    transition: 0.4s;
+    line-height: 40px;
+    width: 0px;
+
+    /*   width: 250px; */
+
+
+}
+
+.multiselect-container {
+    @apply !rounded-none
+}
+
+.multiSelectContainer {
+    border-radius: 0px !important;
+    @apply !rounded-none
+
+}
+
+.search-wrapper {
+    @apply !rounded-r-none bg-transparent;
+}
+
+.optionListContainer {
+    @apply !bg-transparent !text-nearWhite-200
+}
+
+
+
+
+
 
 .pagination {
     margin: 15px auto;

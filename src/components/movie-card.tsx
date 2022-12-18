@@ -1,9 +1,9 @@
-import { mdiCloseBox, mdiThumbDownOutline, mdiThumbUpOutline } from "@mdi/js";
-import Icon from "@mdi/react";
-import React, { useState } from "react";
+import { mdiCloseBox, mdiThumbDownOutline, mdiThumbUpOutline } from '@mdi/js';
+import Icon from '@mdi/react';
+import React, { useState } from 'react';
 
-import { useMoviesStore } from "@/store/movies.store";
-import type { Movie } from "@/types/movies.types";
+import { useMoviesStore } from '@/store/movies.store';
+import type { Movie } from '@/types/movies.types';
 
 const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
   const [showDiscription, setShowDiscription] = useState(false);
@@ -21,7 +21,7 @@ const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
   return (
     <>
       <div
-        className="movie-card mx-4 mb-6 h-80 w-96 transform-gpu cursor-pointer rounded-2xl  hover:scale-110 "
+        className="movie-card  md: relative mx-4 my-10 transform-gpu cursor-pointer rounded-2xl  hover:scale-110 md:h-128 md:w-132 xl:h-80  xl:w-96 "
         style={{
           backgroundImage: `url(/assets/images/${movie.thumbnail})`,
         }}
@@ -29,14 +29,14 @@ const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
         onMouseLeave={() => setShowDiscription(false)}
       >
         {showDiscription && (
-          <div className=" relative top-44 overflow-hidden rounded-b-2xl  bg-black bg-opacity-90 pb-8 text-amber-300   ">
+          <div className=" absolute -bottom-1 w-full rounded-b-2xl  border-black bg-darkPurple-800 p-2 pb-8 text-amber-300 opacity-70 ">
             <h1 className="text-4xl font-bold">{movie.title}</h1>
             <p>
               <span className="font-bold">Genre</span> {movie.category}
             </p>
-            <div className="flex flex-row">
+            <div className="flex flex-row items-center font-semibold text-white">
               <button
-                className=" mr-2 cursor-pointer rounded-full border-2 bg-darkPurple-100 bg-opacity-30  p-4 font-bold text-white hover:bg-opacity-100 "
+                className=" mr-1 flex cursor-pointer rounded-full border-2  p-2 font-bold text-white hover:scale-110  "
                 onClick={() => addLike(movie.id)}
               >
                 <Icon
@@ -45,10 +45,10 @@ const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
                   size={1}
                   color="white"
                 />
-                <p>{movie.likes}</p>
               </button>
+              <p className="pr-5">{movie.likes}</p>
               <button
-                className=" cursor-pointer rounded-full border-2 bg-darkPurple-100 bg-opacity-30  p-4 font-bold text-white hover:bg-opacity-100 "
+                className=" flex cursor-pointer rounded-full border-2 p-2  font-bold text-white  "
                 onClick={() => addDislike(movie.id)}
               >
                 <Icon
@@ -57,8 +57,8 @@ const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
                   size={1}
                   color="white"
                 />
-                <p>{movie.dislikes}</p>
               </button>
+              <p className="px-2">{movie.dislikes}</p>
 
               <button
                 className=" cursor-pointer rounded-full border-2 bg-darkPurple-100 bg-opacity-30  p-4 font-bold text-white hover:bg-opacity-100 "

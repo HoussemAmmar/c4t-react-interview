@@ -16,9 +16,9 @@ function CoverMovie() {
                 invades targets dreams through a chemical-induced shared dream.
               </p>
             </div>
-            <div className=" mt-5 flex flex-row text-xl font-semibold  ">
+            <div className="mt-5 flex flex-row text-xl font-semibold">
               <Link href="/">
-                <button className="  cursor-pointer border-2 bg-darkPurple-100 bg-opacity-70   p-3 px-10 hover:bg-opacity-100 ">
+                <button className="  bg-darkPurple-100- cursor-pointer border-2 bg-opacity-70   p-3 px-10 hover:bg-opacity-100 ">
                   Discover
                 </button>
               </Link>
