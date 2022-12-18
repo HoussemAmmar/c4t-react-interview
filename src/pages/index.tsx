@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import CoverMovie from '@/components/cover-movie';
 import MoviesList from '@/components/movies-list';
@@ -20,7 +20,7 @@ const Index = () => {
     >
       <CoverMovie />
 
-      <div className="bg-darkPurple-800 px-28 shadow">
+      <div className="bg-darkPurple-800  shadow">
         {loader ? (
           <p>Loading..</p>
         ) : (
