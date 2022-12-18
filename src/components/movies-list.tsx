@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
+import React, { useEffect, useState } from 'react';
+import ReactPaginate from 'react-paginate';
 
-import MovieCard from "@/components/movie-card";
-import type { Movie } from "@/types/movies.types";
+import MovieCard from '@/components/movie-card';
+import type { Movie } from '@/types/movies.types';
 
 const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
   title,
   movies,
 }) => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [category, setCategory] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
 
@@ -52,7 +52,7 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
           setCategory(e.target.value);
         }}
       >
-        <option className="text-black" value={""}>
+        <option className="text-black" value={''}>
           select category
         </option>
         {categoryList.map((el: string, index: number) => (
@@ -68,10 +68,10 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
             if (category.length === 0) {
               return el;
             }
-            let expression = "";
+            let expression = '';
             category.forEach((e, index) => {
               expression += `el.category === '${e}'${
-                index === category.length - 1 ? "" : " || "
+                index === category.length - 1 ? '' : ' || '
               }`;
             });
             return eval(expression);
@@ -84,16 +84,16 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
           ))}
       </div>
       <ReactPaginate
-        previousLabel={"prev"}
-        nextLabel={"next"}
-        breakLabel={"..."}
-        breakClassName={"break-me"}
+        previousLabel={'prev'}
+        nextLabel={'next'}
+        breakLabel={'...'}
+        breakClassName={'break-me'}
         pageCount={pageCount}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={handlePageClick}
-        containerClassName={"pagination"}
-        activeClassName={"active"}
+        containerClassName={'pagination'}
+        activeClassName={'active'}
       />
     </div>
   );
