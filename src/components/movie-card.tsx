@@ -1,4 +1,4 @@
-import { mdiThumbDownOutline, mdiThumbUpOutline } from '@mdi/js';
+import { mdiCloseBox, mdiThumbDownOutline, mdiThumbUpOutline } from '@mdi/js';
 import Icon from '@mdi/react';
 import React, { useState } from 'react';
 
@@ -13,6 +13,10 @@ const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
   };
   const addDislike = (id: string) => {
     moviesStore.addDislike(id);
+  };
+
+  const deleteMovie = (id: string) => {
+    moviesStore.deleteMovie(id);
   };
   return (
     <>
@@ -53,7 +57,19 @@ const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
                   size={1}
                   color="white"
                 />
-                <p>{movie.dislikes}</p>
+              </button>
+              <p className="px-2">{movie.dislikes}</p>
+
+              <button
+                className=" cursor-pointer rounded-full border-2 bg-darkPurple-100 bg-opacity-30  p-4 font-bold text-white hover:bg-opacity-100 "
+                onClick={() => deleteMovie(movie.id)}
+              >
+                <Icon
+                  path={mdiCloseBox}
+                  title="delete movie"
+                  size={1}
+                  color="white"
+                />
               </button>
             </div>
           </div>

@@ -1,14 +1,14 @@
-import { mountStoreDevtool } from 'simple-zustand-devtools';
-import create from 'zustand';
+import { mountStoreDevtool } from "simple-zustand-devtools";
+import create from "zustand";
 
-import type { MoviesStoreType } from '@/types/movies.types';
+import type { MoviesStoreType } from "@/types/movies.types";
 
-import { movies$ } from '../../data/movies';
+import { movies$ } from "../../data/movies";
 
 export const useMoviesStore = create<MoviesStoreType>((set, get) => ({
   movies: [],
   loader: false,
-  error: '',
+  error: "",
   getMovies: async () => {
     try {
       set(() => ({ loader: true }));
@@ -17,7 +17,7 @@ export const useMoviesStore = create<MoviesStoreType>((set, get) => ({
       set(() => ({ loader: false }));
     } catch {
       set(() => ({ loader: false }));
-      set(() => ({ error: 'Failed to load data' }));
+      set(() => ({ error: "Failed to load data" }));
     }
   },
   addLike: (id: string) => {
@@ -41,6 +41,13 @@ export const useMoviesStore = create<MoviesStoreType>((set, get) => ({
     movies[index].dislikes += 1;
     set(() => ({ movies }));
   },
+  deleteMovie: (id: string) => {
+    const { movies } = get();
+    const newMovies = movies.filter((movie) => {
+      return movie.id !== id;
+    });
+    set(() => ({ movies: newMovies }));
+  },
 }));
 
-mountStoreDevtool('useMoviesStore', useMoviesStore as any);
+mountStoreDevtool("useMoviesStore", useMoviesStore as any);
