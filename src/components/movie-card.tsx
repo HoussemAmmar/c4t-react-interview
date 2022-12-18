@@ -1,18 +1,49 @@
-import { mdiCloseBox, mdiThumbDownOutline, mdiThumbUpOutline } from '@mdi/js';
-import Icon from '@mdi/react';
-import React, { useState } from 'react';
+import { mdiCloseBox, mdiThumbDownOutline, mdiThumbUpOutline } from "@mdi/js";
+import Icon from "@mdi/react";
+import React, { useState } from "react";
 
-import { useMoviesStore } from '@/store/movies.store';
-import type { Movie } from '@/types/movies.types';
+import { useMoviesStore } from "@/store/movies.store";
+import type { Movie } from "@/types/movies.types";
 
 const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
   const [showDiscription, setShowDiscription] = useState(false);
   const moviesStore: any = useMoviesStore();
+
+  const [isLiked, setIsLiked] = useState(false);
+  const [isDisliked, setIsDisLiked] = useState(false);
+
   const addLike = (id: string) => {
-    moviesStore.addLike(id);
+    if (isLiked) {
+      moviesStore.removeLike(id);
+      setIsLiked(false);
+      return;
+    }
+    if (isDisliked) {
+      moviesStore.removeDislike(id);
+      setIsDisLiked(false);
+      moviesStore.addLike(id);
+      setIsLiked(true);
+    } else {
+      moviesStore.addLike(id);
+      setIsLiked(true);
+    }
   };
   const addDislike = (id: string) => {
-    moviesStore.addDislike(id);
+    if (isDisliked) {
+      moviesStore.removeDislike(id);
+      setIsDisLiked(false);
+      return;
+    }
+    if (isLiked) {
+      moviesStore.removeLike(id);
+      setIsLiked(false);
+
+      moviesStore.addDislike(id);
+      setIsDisLiked(true);
+    } else {
+      moviesStore.addDislike(id);
+      setIsDisLiked(true);
+    }
   };
 
   const deleteMovie = (id: string) => {
@@ -36,7 +67,9 @@ const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
             </p>
             <div className="flex flex-row items-center font-semibold text-white">
               <button
-                className=" mr-1 flex cursor-pointer rounded-full border-2  p-2 font-bold text-white hover:scale-110  "
+                className={` mr-1 flex cursor-pointer rounded-full border-2  p-2 font-bold text-white hover:scale-110  ${
+                  isLiked && "bg-blue-500"
+                }`}
                 onClick={() => addLike(movie.id)}
               >
                 <Icon
@@ -48,7 +81,9 @@ const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
               </button>
               <p className="pr-5">{movie.likes}</p>
               <button
-                className=" flex cursor-pointer rounded-full border-2 p-2  font-bold text-white  "
+                className={` flex cursor-pointer rounded-full border-2 p-2  font-bold text-white  ${
+                  isDisliked && "bg-blue-500"
+                }`}
                 onClick={() => addDislike(movie.id)}
               >
                 <Icon
