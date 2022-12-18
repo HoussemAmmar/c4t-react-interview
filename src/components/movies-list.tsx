@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ReactPaginate from 'react-paginate';
 
 import MovieCard from '@/components/movie-card';
 import type { Movie } from '@/types/movies.types';
@@ -11,6 +12,11 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
   const [category, setCategory] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const [dataPaginated, setDataPaginated] = useState([]);
+  const [perPage] = useState(3);
+  const [pageCount, setPageCount] = useState(0);
+
   useEffect(() => {
     const existingCategories = movies.map((movie: any) => movie.category);
     const categories: any = existingCategories.filter(
@@ -21,7 +27,21 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
     if (categories.length !== categoryList.length) {
       setCategoryList(categories);
     }
-  }, [categoryList]);
+    // @ts-ignore
+    setPageCount(Math.ceil(movies.length / perPage));
+    const slice: any = movies.slice(
+      perPage * currentPage,
+      perPage * (currentPage + 1)
+    );
+
+    setDataPaginated(slice);
+  }, [currentPage]);
+
+  const handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    setCurrentPage(selectedPage);
+  };
+
   // @ts-ignore
   return (
     <div className="bg-darkPurple-800  shadow">
@@ -43,7 +63,7 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
       </select>
       <input className="p-3" onChange={(e) => setSearch(e.target.value)} />
       <div className="flex flex-wrap">
-        {movies
+        {dataPaginated
           .filter((el) => {
             if (category.length === 0) {
               return el;
@@ -63,6 +83,18 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
             <MovieCard key={movie.id} movie={movie} />
           ))}
       </div>
+      <ReactPaginate
+        previousLabel={'prev'}
+        nextLabel={'next'}
+        breakLabel={'...'}
+        breakClassName={'break-me'}
+        pageCount={pageCount}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={handlePageClick}
+        containerClassName={'pagination'}
+        activeClassName={'active'}
+      />
     </div>
   );
 };
