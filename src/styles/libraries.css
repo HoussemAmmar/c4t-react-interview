@@ -1,0 +1,54 @@
+.multiselect-container {
+    @apply !rounded-none
+}
+
+.multiSelectContainer {
+    border-radius: 0px !important;
+    @apply !rounded-none border-amber-100
+
+}
+
+.search-wrapper {
+    @apply !rounded-r-none bg-transparent text-amber-100;
+}
+
+.optionListContainer {
+    @apply !bg-transparent !text-nearWhite-200
+}
+
+
+.pagination {
+    display: flex;
+    list-style: none;
+    outline: none;
+    @apply pb-8 justify-center font-semibold;
+}
+
+.pagination > .active > a {
+    background-color: #47ccde;
+    border-color: #47ccde;
+    color: #fff;
+
+}
+
+.pagination > li > a {
+    border: 1px solid #fff;
+    background-color: #190020;
+
+    outline: none;
+    cursor: pointer;
+    @apply px-3 sm:px-6 md:px-8 lg:px-10  md:py-2 mb-4;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    @apply bg-darkPurple-100 bg-opacity-40 border-white;
+    outline: none;
+}
+
+.pagination > li > a, .pagination > li > span {
+    color: #fff
+}
+
+.pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span {
+    border-radius: unset
+}
