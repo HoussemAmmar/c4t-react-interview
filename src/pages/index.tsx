@@ -6,6 +6,8 @@ import { Meta } from '@/layouts/Meta';
 import { useMoviesStore } from '@/store/movies.store';
 import { Main } from '@/templates/Main';
 
+import { suggestedMovie } from '../../data/suggested-movie';
+
 const Index = () => {
   const moviesStore: any = useMoviesStore();
   const { movies, loader } = moviesStore;
@@ -18,7 +20,10 @@ const Index = () => {
     <Main
       meta={<Meta title="c4t react interview" description="Next js test" />}
     >
-      <CoverMovie />
+      <CoverMovie
+        title={suggestedMovie.title}
+        description={suggestedMovie.description}
+      />
 
       <div className="bg-darkPurple-800  shadow">
         {loader ? (

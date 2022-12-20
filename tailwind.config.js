@@ -20,6 +20,14 @@ module.exports = {
     },
 
     extend: {
+      screens: {
+        '4xs': '320px',
+        '3xs': '375px',
+        '2xs': '425px',
+        xs: '480px',
+        '3xl': '1600px',
+        '4xl': '2048px',
+      },
       spacing: {
         128: '28rem',
         132: '29rem',
