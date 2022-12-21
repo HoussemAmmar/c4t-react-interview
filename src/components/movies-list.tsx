@@ -1,53 +1,91 @@
-import { mdiMagnify } from '@mdi/js';
-import Icon from '@mdi/react';
-import Multiselect from 'multiselect-react-dropdown';
-import React, { useEffect, useState } from 'react';
-import ReactPaginate from 'react-paginate';
+import { mdiMagnify } from "@mdi/js";
+import Icon from "@mdi/react";
+import Multiselect from "multiselect-react-dropdown";
+import React, { useEffect, useRef, useState } from "react";
+import ReactPaginate from "react-paginate";
 
-import MovieCard from '@/components/movie-card';
-import type { Movie } from '@/types/movies.types';
+import MovieCard from "@/components/movie-card";
+import type { Movie } from "@/types/movies.types";
 
 const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
   title,
   movies,
 }) => {
-  const [search, setSearch] = useState('');
-  const [category, setCategory] = useState([]);
-  const [categoryList, setCategoryList] = useState([]);
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState<string[]>([]);
+  const [categoryList, setCategoryList] = useState<any[]>([]);
 
   const [currentPage, setCurrentPage] = useState(0);
   const [dataPaginated, setDataPaginated] = useState([]);
   const [perPage] = useState(6);
   const [pageCount, setPageCount] = useState(0);
+  const [moviesList, setMoviesList] = useState(movies);
+  const [test, setTest] = useState("");
+  const multiselectRef = useRef();
+  function filterByCategory(categories: any) {
+    setCategory(categories);
+    const filteredArray = movies.filter((el) => {
+      if (categories.length === 0) {
+        return el;
+      }
+      let expression = "";
+      categories.forEach((e, index) => {
+        expression += `el.category === '${e}'${
+          index === categories.length - 1 ? "" : " || "
+        }`;
+      });
+      return eval(expression);
+    });
+    // @ts-ignore
 
+    setMoviesList(filteredArray);
+  }
+
+  function filterByTitle(searchValue: string) {
+    const filteredArray = movies.filter((movie) =>
+      movie.title.toUpperCase().startsWith(searchValue.toUpperCase())
+    );
+    setMoviesList(filteredArray);
+    setSearch(searchValue);
+  }
   useEffect(() => {
+    // get only the categories that exits
     const existingCategories = movies.map((movie: any) => movie.category);
+    // remove the duplications
     const categories: any = existingCategories.filter(
       (element: any, index: number) => {
         return existingCategories.indexOf(element) === index;
       }
     );
+    const categoriesIndexed = categories.map((el, i) => {
+      return { name: el, id: i };
+    });
 
-    setCategoryList(categories);
+    setCategoryList(categoriesIndexed);
 
     // @ts-ignore
-    setPageCount(Math.ceil(movies.length / perPage));
-    const slice: any = movies.slice(
+    setPageCount(Math.ceil(moviesList.length / perPage));
+    const slice: any = moviesList.slice(
       perPage * currentPage,
       perPage * (currentPage + 1)
     );
 
     setDataPaginated(slice);
-  }, [currentPage, categoryList]);
+  }, [currentPage, moviesList]);
 
   const handlePageClick = (e) => {
     const selectedPage = e.selected;
     setCurrentPage(selectedPage);
   };
-
+  const resetValues = () => {
+    setTest("ok");
+    console.log("test", test);
+    // By calling the belowe method will reset the selected values programatically
+    console.log("ref", multiselectRef.current);
+  };
   // @ts-ignore
   return (
-    <div className=" relative  bg-darkPurple-800 shadow xl:px-52">
+    <div className=" relative  bg-darkPurple-800 shadow xl:px-36">
       <div className="4xl: ml-8 flex flex-row flex-wrap items-center md:ml-10 xl:ml-40 3xl:ml-32 4xl:ml-44">
         <h1 className="mr-10 text-3xl font-bold text-amber-100 sm:text-5xl">
           {title}
@@ -57,12 +95,20 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
             <Multiselect
               options={categoryList} // Options to display in the dropdown
               // selectedValues={category} // Preselected value to persist in dropdown
-              // onSelect={(e) => console.log('e', e)} // Function will trigger on select event
-              // onRemove={() => setCategory(category)} // Function will trigger on remove event
+              onSelect={(selectedList, selectedItem) => {
+                const categories = [...category, selectedItem.name];
+                filterByCategory(categories);
+              }} // Function will trigger on select event
+              onRemove={(selectedList, removedItem) => {
+                const categories = category.filter(
+                  (el) => el !== removedItem.name
+                );
+                filterByCategory(categories);
+              }} // Function will trigger on remove event
               displayValue="name" // Property name to display in the dropdown options
-              showArrow={true}
-              placeholder="Genre"
-              // className="  text-xl font-semibold text-amber-100"
+              // showArrow={true}
+              // placeholder="Genre"
+              className="  text-xl font-semibold text-amber-100"
             />
           </div>
           {/* <select */}
@@ -81,13 +127,13 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
           {/*  ))} */}
           {/* </select> */}
           <div
-            className={`  search-box  pl-2 text-white ${search && 'hover-box'}`}
+            className={`  search-box  pl-2 text-white ${search && "hover-box"}`}
           >
             <input
               className="search-text"
               type="text"
               placeholder="Search Anything"
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => filterByTitle(e.target.value)}
             />
             <span className="search-btn   rounded-full p-2 text-nearWhite-200 hover:bg-nearWhite-200 hover:text-grayBlack-900 ">
               <Icon path={mdiMagnify} title="User Profile" size={1} />
@@ -95,39 +141,32 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap justify-center pt-6 sm:pt-8 md:pt-12 lg:pt-6">
-        {dataPaginated
-          .filter((el) => {
-            if (category.length === 0) {
-              return el;
-            }
-            let expression = '';
-            category.forEach((e, index) => {
-              expression += `el.category === '${e}'${
-                index === category.length - 1 ? '' : ' || '
-              }`;
-            });
-            return eval(expression);
-          })
-          .filter((movie) =>
-            movie.title.toUpperCase().startsWith(search.toUpperCase())
-          )
-          .map((movie: Movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-      </div>
-      <ReactPaginate
-        previousLabel={'<<'}
-        nextLabel={'>>'}
-        breakLabel={'...'}
-        breakClassName={'break-me'}
-        pageCount={pageCount}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={handlePageClick}
-        containerClassName={'pagination'}
-        activeClassName={'active'}
-      />
+
+      {dataPaginated.length > 0 ? (
+        <>
+          <div className="flex flex-wrap justify-center pt-6 sm:pt-8 md:pt-12 lg:pt-6">
+            {dataPaginated.map((movie: Movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </div>
+          <ReactPaginate
+            previousLabel={"<<"}
+            nextLabel={">>"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            activeClassName={"active"}
+          />
+        </>
+      ) : (
+        <h1 className="flex h-screen w-full items-center justify-center pb-40 text-2xl font-normal text-white">
+          Did not match any movie
+        </h1>
+      )}
     </div>
   );
 };
