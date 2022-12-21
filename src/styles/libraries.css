@@ -9,11 +9,17 @@
 }
 
 .search-wrapper {
-    @apply !rounded-r-none bg-transparent text-amber-100;
+    @apply rounded-r-none bg-transparent text-amber-100;
 }
 
 .optionListContainer {
-    @apply !bg-transparent !text-nearWhite-200
+    @apply bg-red-200 text-nearWhite-200;
+}
+.option {
+@apply bg-darkPurple-800
+}
+.inputField {
+  background-color: red;
 }
 
 
