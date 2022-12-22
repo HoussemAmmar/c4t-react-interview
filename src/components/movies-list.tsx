@@ -81,8 +81,8 @@ const MoviesList: React.FC<MovieListPropsType> = ({ title, movies }) => {
   };
 
   return (
-    <div className=" relative   bg-darkPurple-800 shadow xl:px-36">
-      <div className="  flex flex-col flex-wrap items-center justify-start md:ml-10 md:flex-row xl:ml-40 3xl:ml-32 4xl:ml-8 4xl:ml-44">
+    <div className=" xl=px-4   relative bg-darkPurple-800 shadow 2xl:px-36">
+      <div className="  flex flex-col flex-wrap items-center justify-start md:ml-10 md:flex-row 2xl:ml-40 3xl:ml-32 4xl:ml-8 4xl:ml-44">
         <h1 className="mr-10 pb-2 text-4xl font-bold text-amber-100 sm:text-5xl">
           {title}
         </h1>

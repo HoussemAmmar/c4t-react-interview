@@ -10,7 +10,7 @@ const CoverMovie: React.FC<MovieCoverPropsType> = ({ title, description }) => {
         <div className="">
           <div className="   absolute left-5 bottom-10 w-5/6 text-white 4xs:bottom-32 3xs:bottom-36 3xs:w-4/6 xs:bottom-44   sm:left-10 lg:bottom-36  lg:w-2/6 ">
             <div className="">
-              <h1 className=" mb-2 text-3xl  font-extrabold 4xs:text-5xl sm:mb-0  lg:text-7xl xl:text-9xl ">
+              <h1 className=" mb-2 text-3xl  font-extrabold 4xs:text-5xl sm:mb-0  lg:text-7xl 2xl:text-9xl ">
                 {title}
               </h1>
               <p className=" text-xs 4xs:text-sm md:text-2xl">{description}</p>
