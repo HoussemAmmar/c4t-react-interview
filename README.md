@@ -77,4 +77,3 @@ Managing work using Jira for team work in the future for tracking and reporting.
   <a  target="blank"><img src="jira.png" /></a>
 </p>
 
-## Have a great weekend, I'm looking forward to meeting you !
