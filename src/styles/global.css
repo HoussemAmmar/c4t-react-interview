@@ -22,7 +22,6 @@
 }
 
 .movie-card {
-    /*background-image: url("../../public/assets/images/8.jpg");*/
     background-repeat: no-repeat;
     background-size: cover;
     @apply bg-top;
@@ -34,16 +33,19 @@
 .search-box {
     position: relative;
     background: transparent;
-    height: 45px;
+    height: 51px;
     width: 40px;
     transition: 0.4s;
     border: 1px solid;
     @apply border-nearWhite-200;
-    @apply rounded-r-md;
+    @apply md:rounded-r-md;
+    @apply w-32 md:w-10
+
 }
 
 .search-box:hover {
-    width: 300px;
+
+    @apply w-44 sm:w-56  md:w-72
 
 }
 
@@ -74,7 +76,7 @@
     transition: 0.4s;
     cursor: pointer;
     text-decoration: none;
-    
+
 }
 
 .search-text {
@@ -82,7 +84,7 @@
     background: none;
     outline: none;
     float: left;
-    padding: 0;
+    padding-top: 3px;
     color: white;
     font-size: 16px;
     font-weight: normal;

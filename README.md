@@ -16,36 +16,22 @@ $ npm install
 ### Running the app
 
 ```bash
-# development
-$ npm run start
-
 # watch mode
-$ npm run start:dev
+$ npm run dev
 
-# production mode
-$ npm run start:prod
+# start 
+$ npm run start
 ```
-
-### Test
-
-```bash
-
-# e2e tests
-$ npm run test:e2e
-
-```
-
-> **NOTE :**  I particularly allowed .env file in this repo on purpose to make it simpler for the reviewer to run
 
 # Details
 
-## Structure
+## Structure :
 
 [//]: # (#### The backend consists of 3 Modules :)
 
-- pages folder contains the views (for now we only have home)
+##### - pages folder contains the views (for now we only have home)
 
-##### components (reusable) :
+##### - components (reusable) :
 
 - coverMovie that accept a suggested movie could be reused in TV shows section in the future
 
@@ -53,20 +39,16 @@ $ npm run test:e2e
   encapsulated in the component so it could be easily reused in different sections and data
 - movie Card
 
-##### store for state management  :
+##### - Types folder
+
+##### - store for state management  :
 
 - handling the state and the global function using Zustand, store folder contains movie.store.ts responsible for all
   actions needed for movies.
 
-## E2E Testing
+##### - test folder for jest
 
-- A test suit for item is implemented to test the bid scenarios (most of the logic for auction)
-- The rest of the test will be the same
-- In the future, we can change testing in mongo in memory
-
-```bash
-$ npm run test:e2e
-```
+##### - cypress folder for e2e testing
 
 ## Responsive Design
 
