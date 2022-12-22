@@ -1,17 +1,17 @@
-import { mdiMagnify } from "@mdi/js";
-import Icon from "@mdi/react";
-import Multiselect from "multiselect-react-dropdown";
-import React, { useEffect, useRef, useState } from "react";
-import ReactPaginate from "react-paginate";
+import { mdiMagnify } from '@mdi/js';
+import Icon from '@mdi/react';
+import Multiselect from 'multiselect-react-dropdown';
+import React, { useEffect, useRef, useState } from 'react';
+import ReactPaginate from 'react-paginate';
 
-import MovieCard from "@/components/movie-card";
-import type { Movie } from "@/types/movies.types";
+import MovieCard from '@/components/movie-card';
+import type { Movie } from '@/types/movies.types';
 
 const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
   title,
   movies,
 }) => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [category, setCategory] = useState<string[]>([]);
   const [categoryList, setCategoryList] = useState<any[]>([]);
 
@@ -20,18 +20,19 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
   const [perPage] = useState(6);
   const [pageCount, setPageCount] = useState(0);
   const [moviesList, setMoviesList] = useState(movies);
-  const [test, setTest] = useState("");
+  const [test, setTest] = useState('');
   const multiselectRef = useRef();
+
   function filterByCategory(categories: any) {
     setCategory(categories);
     const filteredArray = movies.filter((el) => {
       if (categories.length === 0) {
         return el;
       }
-      let expression = "";
+      let expression = '';
       categories.forEach((e, index) => {
         expression += `el.category === '${e}'${
-          index === categories.length - 1 ? "" : " || "
+          index === categories.length - 1 ? '' : ' || '
         }`;
       });
       return eval(expression);
@@ -48,6 +49,7 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
     setMoviesList(filteredArray);
     setSearch(searchValue);
   }
+
   useEffect(() => {
     // get only the categories that exits
     const existingCategories = movies.map((movie: any) => movie.category);
@@ -78,10 +80,10 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
     setCurrentPage(selectedPage);
   };
   const resetValues = () => {
-    setTest("ok");
-    console.log("test", test);
+    setTest('ok');
+    console.log('test', test);
     // By calling the belowe method will reset the selected values programatically
-    console.log("ref", multiselectRef.current);
+    console.log('ref', multiselectRef.current);
   };
   // @ts-ignore
   return (
@@ -93,6 +95,7 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
         <div className="flex flex-col flex-wrap sm:flex-row">
           <div className="">
             <Multiselect
+              id="filter"
               options={categoryList} // Options to display in the dropdown
               // selectedValues={category} // Preselected value to persist in dropdown
               onSelect={(selectedList, selectedItem) => {
@@ -127,7 +130,7 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
           {/*  ))} */}
           {/* </select> */}
           <div
-            className={`  search-box  pl-2 text-white ${search && "hover-box"}`}
+            className={`  search-box  pl-2 text-white ${search && 'hover-box'}`}
           >
             <input
               className="search-text"
@@ -150,17 +153,22 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
             ))}
           </div>
           <ReactPaginate
-            previousLabel={"<<"}
-            nextLabel={">>"}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
+            previousLabel={'<<'}
+            nextLabel={'>>'}
+            breakLabel={'...'}
+            breakClassName={'break-me'}
             pageCount={pageCount}
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
             onPageChange={handlePageClick}
-            containerClassName={"pagination"}
-            activeClassName={"active"}
-          />
+            containerClassName={'pagination'}
+            activeClassName={'active'}
+          >
+            {(previousLabel, nextLabel) => {
+              <span data-testid="previous-button">{previousLabel}</span>;
+              <span data-testid="next-button">{nextLabel}</span>;
+            }}
+          </ReactPaginate>
         </>
       ) : (
         <h1 className="flex h-screen w-full items-center justify-center pb-40 text-2xl font-normal text-white">

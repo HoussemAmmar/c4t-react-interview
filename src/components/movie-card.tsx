@@ -52,6 +52,7 @@ const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
   return (
     <>
       <div
+        id="card"
         className="movie-card  relative mx-4 my-10 h-72 w-80 transform-gpu cursor-pointer rounded-2xl hover:scale-110 sm:h-80 sm:w-96 md:h-128 md:w-132 xl:h-80  xl:w-96 "
         style={{
           backgroundImage: `url(/assets/images/${movie.thumbnail})`,
@@ -66,7 +67,7 @@ const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
                 {movie.title}
               </h1>
               <p className="text-sm">
-                <span className="font-bold">Genre </span> | {movie.category}
+                <span className="font-bold">Genre | </span> {movie.category}
               </p>
               <div className="mt-5 flex flex-row items-baseline font-semibold text-white">
                 <button
