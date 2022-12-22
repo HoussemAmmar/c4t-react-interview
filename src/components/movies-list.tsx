@@ -61,9 +61,8 @@ const MoviesList: React.FC<MovieListPropsType> = ({ title, movies }) => {
 
     setCategoryList(categoriesIndexed);
 
-    // @ts-ignore
     setPageCount(Math.ceil(moviesList.length / perPage));
-    const slice: any = moviesList.slice(
+    const slice = moviesList.slice(
       perPage * currentPage,
       perPage * (currentPage + 1)
     );
@@ -81,32 +80,29 @@ const MoviesList: React.FC<MovieListPropsType> = ({ title, movies }) => {
     setCurrentPage(selectedPage);
   };
 
-  // @ts-ignore
   return (
-    <div className=" relative  bg-darkPurple-800 shadow xl:px-36">
-      <div className="4xl: ml-8 flex flex-row flex-wrap items-center md:ml-10 xl:ml-40 3xl:ml-32 4xl:ml-44">
-        <h1 className="mr-10 text-3xl font-bold text-amber-100 sm:text-5xl">
+    <div className=" relative   bg-darkPurple-800 shadow xl:px-36">
+      <div className="  flex flex-col flex-wrap items-center justify-start md:ml-10 md:flex-row xl:ml-40 3xl:ml-32 4xl:ml-8 4xl:ml-44">
+        <h1 className="mr-10 pb-2 text-4xl font-bold text-amber-100 sm:text-5xl">
           {title}
         </h1>
-        <div className="flex flex-col flex-wrap sm:flex-row">
+        <div className="flex flex-col flex-wrap sm:flex-row ">
           <div className="">
             <Multiselect
               id="filter"
-              options={categoryList} // Options to display in the dropdown
-              // selectedValues={category} // Preselected value to persist in dropdown
+              options={categoryList}
               onSelect={(_selectedList, selectedItem) => {
                 const categories = [...category, selectedItem.name];
                 filterByCategory(categories);
-              }} // Function will trigger on select event
+              }}
               onRemove={(_selectedList, removedItem) => {
                 const categories = category.filter(
                   (el) => el !== removedItem.name
                 );
                 filterByCategory(categories);
-              }} // Function will trigger on remove event
-              displayValue="name" // Property name to display in the dropdown options
-              // showArrow={true}
-              // placeholder="Genre"
+              }}
+              placeholder="Genre"
+              displayValue="name"
               className="  text-xl font-semibold text-amber-100"
             />
           </div>
@@ -129,7 +125,7 @@ const MoviesList: React.FC<MovieListPropsType> = ({ title, movies }) => {
 
       {dataPaginated.length > 0 ? (
         <>
-          <div className="flex flex-wrap justify-center pt-6 sm:pt-8 md:pt-12 lg:pt-6">
+          <div className="flex  flex-wrap justify-center pt-6 sm:pt-8 md:pt-12 lg:pt-6">
             {dataPaginated.map((movie: Movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}

@@ -9,17 +9,35 @@
 }
 
 .search-wrapper {
-    @apply rounded-r-none bg-transparent text-amber-100;
+    @apply !rounded-r-none bg-transparent text-amber-100 !py-2;
+}
+
+.searchBox {
+    @apply w-24 2xs:w-28 sm:w-32 pl-2
 }
 
 .optionListContainer {
     @apply bg-red-200 text-nearWhite-200;
 }
-.option {
-@apply bg-darkPurple-800
+
+.groupHeading {
+    background: red !important;
 }
+
+.chip {
+    @apply !bg-darkPurple-100 !mb-0
+}
+
+.notFound {
+    @apply bg-darkPurple-800
+}
+
+.option {
+    @apply bg-darkPurple-800
+}
+
 .inputField {
-  background-color: red;
+    background-color: red;
 }
 
 
