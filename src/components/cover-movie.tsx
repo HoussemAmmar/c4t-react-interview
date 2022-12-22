@@ -1,10 +1,9 @@
 import Link from 'next/link';
 import React from 'react';
 
-const CoverMovie: React.FC<{ title: string; description: string }> = ({
-  title,
-  description,
-}) => {
+import type { MovieCoverPropsType } from '@/types/movies.types';
+
+const CoverMovie: React.FC<MovieCoverPropsType> = ({ title, description }) => {
   return (
     <>
       <section className="landing-movie  ">

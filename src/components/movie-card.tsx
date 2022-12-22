@@ -9,8 +9,8 @@ const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
   const [showDiscription, setShowDiscription] = useState(false);
   const moviesStore: any = useMoviesStore();
 
-  const [isLiked, setIsLiked] = useState(false);
-  const [isDisliked, setIsDisLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [isDisliked, setIsDisLiked] = useState<boolean>(false);
 
   const addLike = (id: string) => {
     if (isLiked) {
@@ -45,7 +45,6 @@ const MovieCard: React.FC<{ movie: Movie }> = ({ movie }) => {
       setIsDisLiked(true);
     }
   };
-
   const deleteMovie = (id: string) => {
     moviesStore.deleteMovie(id);
   };

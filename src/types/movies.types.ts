@@ -13,3 +13,13 @@ export type MoviesStoreType = {
   error: string;
   getMovies: () => void;
 };
+
+export type MovieListPropsType = {
+  title: string;
+  movies: Movie[];
+};
+
+export type MovieCoverPropsType = {
+  title: string;
+  description: string;
+};

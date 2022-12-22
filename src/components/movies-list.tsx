@@ -1,27 +1,22 @@
 import { mdiMagnify } from '@mdi/js';
 import Icon from '@mdi/react';
 import Multiselect from 'multiselect-react-dropdown';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 
 import MovieCard from '@/components/movie-card';
-import type { Movie } from '@/types/movies.types';
+import type { Movie, MovieListPropsType } from '@/types/movies.types';
 
-const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
-  title,
-  movies,
-}) => {
-  const [search, setSearch] = useState('');
+const MoviesList: React.FC<MovieListPropsType> = ({ title, movies }) => {
+  const [search, setSearch] = useState<string>('');
   const [category, setCategory] = useState<string[]>([]);
-  const [categoryList, setCategoryList] = useState<any[]>([]);
+  const [categoryList, setCategoryList] = useState<string[]>([]);
 
-  const [currentPage, setCurrentPage] = useState(0);
-  const [dataPaginated, setDataPaginated] = useState([]);
-  const [perPage] = useState(6);
-  const [pageCount, setPageCount] = useState(0);
-  const [moviesList, setMoviesList] = useState(movies);
-  const [test, setTest] = useState('');
-  const multiselectRef = useRef();
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [dataPaginated, setDataPaginated] = useState<Movie[]>([]);
+  const [perPage] = useState<number>(6);
+  const [pageCount, setPageCount] = useState<number>(0);
+  const [moviesList, setMoviesList] = useState<Movie[]>(movies);
 
   function filterByCategory(categories: any) {
     setCategory(categories);
@@ -30,11 +25,12 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
         return el;
       }
       let expression = '';
-      categories.forEach((e, index) => {
+      categories.forEach((e: string, index: number) => {
         expression += `el.category === '${e}'${
           index === categories.length - 1 ? '' : ' || '
         }`;
       });
+      // eslint-disable-next-line no-eval
       return eval(expression);
     });
     // @ts-ignore
@@ -59,7 +55,7 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
         return existingCategories.indexOf(element) === index;
       }
     );
-    const categoriesIndexed = categories.map((el, i) => {
+    const categoriesIndexed = categories.map((el: string, i: number) => {
       return { name: el, id: i };
     });
 
@@ -75,16 +71,16 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
     setDataPaginated(slice);
   }, [currentPage, moviesList]);
 
-  const handlePageClick = (e) => {
+  useEffect(() => {
+    // This function will be called whenever props are updated
+    setMoviesList(movies);
+  }, [movies]);
+
+  const handlePageClick = (e: { selected: number }) => {
     const selectedPage = e.selected;
     setCurrentPage(selectedPage);
   };
-  const resetValues = () => {
-    setTest('ok');
-    console.log('test', test);
-    // By calling the belowe method will reset the selected values programatically
-    console.log('ref', multiselectRef.current);
-  };
+
   // @ts-ignore
   return (
     <div className=" relative  bg-darkPurple-800 shadow xl:px-36">
@@ -98,11 +94,11 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
               id="filter"
               options={categoryList} // Options to display in the dropdown
               // selectedValues={category} // Preselected value to persist in dropdown
-              onSelect={(selectedList, selectedItem) => {
+              onSelect={(_selectedList, selectedItem) => {
                 const categories = [...category, selectedItem.name];
                 filterByCategory(categories);
               }} // Function will trigger on select event
-              onRemove={(selectedList, removedItem) => {
+              onRemove={(_selectedList, removedItem) => {
                 const categories = category.filter(
                   (el) => el !== removedItem.name
                 );
@@ -114,21 +110,7 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
               className="  text-xl font-semibold text-amber-100"
             />
           </div>
-          {/* <select */}
-          {/*  className=" w-16 " */}
-          {/*  onChange={(e) => { */}
-          {/*    setCategory(e.target.value); */}
-          {/*  }} */}
-          {/* > */}
-          {/*  <option className="text-black" value={''}> */}
-          {/*    select category */}
-          {/*  </option> */}
-          {/*  {categoryList.map((el: string, index: number) => ( */}
-          {/*    <option key={index} className="text-black" value={el}> */}
-          {/*      {el} */}
-          {/*    </option> */}
-          {/*  ))} */}
-          {/* </select> */}
+
           <div
             className={`  search-box  pl-2 text-white ${search && 'hover-box'}`}
           >
@@ -163,12 +145,7 @@ const MoviesList: React.FC<{ title: string; movies: Movie[] }> = ({
             onPageChange={handlePageClick}
             containerClassName={'pagination'}
             activeClassName={'active'}
-          >
-            {(previousLabel, nextLabel) => {
-              <span data-testid="previous-button">{previousLabel}</span>;
-              <span data-testid="next-button">{nextLabel}</span>;
-            }}
-          </ReactPaginate>
+          />
         </>
       ) : (
         <h1 className="flex h-screen w-full items-center justify-center pb-40 text-2xl font-normal text-white">
