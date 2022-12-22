@@ -16,7 +16,7 @@ const movie = {
 describe('Index page', () => {
   describe('Multi slect filter', () => {
     it('Allow the user to select multiple options from the filter', () => {
-      const { getByText, getByAltText, getByTestId } = render(
+      const { getByText } = render(
         <MovieCard movie={movie} />
       );
       expect(getByText(movie.title)).toBeInTheDocument();
@@ -24,10 +24,7 @@ describe('Index page', () => {
       expect(getByText(movie.likes)).toBeInTheDocument();
       expect(getByText(movie.dislikes)).toBeInTheDocument();
 
-      // Open the dropdown list of options
-      // console.log('tttttttt', screen.getByTestId('filter'));
-      // fireEvent.click(getByTestId('filter'));
-      // fireEvent.click(getByTestId('filter'));
+=$
     });
   });
 });
