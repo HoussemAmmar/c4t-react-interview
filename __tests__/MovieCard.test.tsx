@@ -24,7 +24,7 @@ describe('Index page', () => {
       expect(getByText(movie.likes)).toBeInTheDocument();
       expect(getByText(movie.dislikes)).toBeInTheDocument();
 
-=$
+
     });
   });
 });
